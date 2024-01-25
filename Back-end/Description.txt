@@ -1,0 +1,43 @@
+การเรียกใช้งาน api
+1.สร้าง table ชื่อ activity ใน database
+GET METHOD : localhost:3000/create/activitytable
+
+2.สร้าง table ชื่อ student ใน database
+GET METHOD : localhost:3000/create/studenttable
+
+3.เพิ่มกิจกรรมที่อาจารย์กดสร้างไว้ใน database
+POST METHOD : localhost:3000/activity/add
+example parameter : {
+                        "act_name" : "verilog",
+                        "instructor": "paskorn",
+                        "description" : "oooooooooo",
+                        "date" : "2024-10-24"
+                    }
+
+4.เพิ่มนักศึกษาลงไปในกิจกรรมที่อาจารย์สร้างไว้
+POST METHOD : localhost:3000/student/add
+example parameter : {
+                        "act_name" : "html",
+                        "instructor" : "chinawat" ,
+                        "std_fname" : "kasiyot",
+                        "std_lname": "hanphairot",
+                        "std_id" : 640610621
+                    }
+
+5.อ่านข้อมูลนักศึกษาทั้งหมดที่ผ่านกิจกรรม
+GET METHOD : localhost:3000/student/get/from/:instructor/:activity_name
+example : localhost:3000/student/get/from/chinawat/html
+
+6.อ่านข้อมูลกิจกรรมทั้งหมดที่อาจารย์เป็นคนสร้างขึ้นมา
+GET METHOD : localhost:3000/activity/get/from/:instructor
+example : localhost:3000/activity/get/from/thanatip
+
+7.อ่านข้อมูลกิจกรรมทั้งหมดที่นักศึกษาเข้าร่วม
+GET METHOD : localhost:3000/activity/get/in/:student_id
+example : localhost:3000/activity/get/in/640610621
+
+8.ลบกิจกรรมที่สร้างไว้
+DELETE METHOD : localhost:3000/delete/:activity_name
+example : localhost:3000/delete/verilog
+
+*************รายละเอียดต่างๆ coming soon*************
