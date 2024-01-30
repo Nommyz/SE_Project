@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("../../db.js");
 const router = express.Router();
 
-// Add activity from organizer to database
+// Add activity from instructor to database
 router.post("/add", async (req, res) => {
   const { act_name, instructor, description, date } = req.body;
 
@@ -77,13 +77,16 @@ router.get("/get/in/:student_id", async (req, res) => {
   }
 });
 
-router.delete("/:activity_name", async (req, res) => {
+//Delete single activity
+router.delete("/activity/:instructor/:activity_name", async (req, res) => {
   const activity_name = req.params.activity_name;
+  const instructor = req.params.instructor;
 
+  //If activity was deleted it will automatically delete students in activity too
   try {
     connection.query(
-      "DELETE FROM activity WHERE act_name = ?",
-      [activity_name],
+      "DELETE FROM activity WHERE act_name = ? AND instructor = ?",
+      [activity_name, instructor],
       (err, results, fields) => {
         if (err) {
           console.log(err);
@@ -92,7 +95,7 @@ router.delete("/:activity_name", async (req, res) => {
         if (results.affectedRows === 0) {
           return res
             .status(404)
-            .json({ msg: "No activity with that organizer" });
+            .json({ msg: `No activity from ${instructor}` });
         }
         return res.status(200).json({ msg: "Activity deleted successfully" });
       }

@@ -11,8 +11,8 @@ example parameter : {
 2.เพิ่มนักศึกษาลงไปในกิจกรรมที่อาจารย์สร้างไว้
 POST METHOD : localhost:3000/student/add
 example parameter : {
-                        "act_name" : "html",
-                        "instructor" : "chinawat" ,
+                        "act_name" : "verilog",
+                        "instructor" : "paskorn" ,
                         "std_fname" : "kasiyot",
                         "std_lname": "hanphairot",
                         "std_id" : 640610621
@@ -20,18 +20,26 @@ example parameter : {
 
 3.อ่านข้อมูลนักศึกษาทั้งหมดที่ผ่านกิจกรรม
 GET METHOD : localhost:3000/student/get/from/:instructor/:activity_name
-example : localhost:3000/student/get/from/chinawat/html
+example : localhost:3000/student/get/from/paskorn/verilog
 
 4.อ่านข้อมูลกิจกรรมทั้งหมดที่อาจารย์เป็นคนสร้างขึ้นมา
 GET METHOD : localhost:3000/activity/get/from/:instructor
-example : localhost:3000/activity/get/from/thanatip
+example : localhost:3000/activity/get/from/paskorn
 
 5.อ่านข้อมูลกิจกรรมทั้งหมดที่นักศึกษาเข้าร่วม
 GET METHOD : localhost:3000/activity/get/in/:student_id
 example : localhost:3000/activity/get/in/640610621
 
 6.ลบกิจกรรมที่สร้างไว้
-DELETE METHOD : localhost:3000/delete/:activity_name
-example : localhost:3000/delete/verilog
+DELETE METHOD : localhost:3000/delete/activity/:instructor/:activity_name
+example : localhost:3000/delete/paskorn/verilog
+
+7.ลบชื่อนักศึกษาออกจากกิจกรรม
+DELETE METHOD : localhost:3000/delete/student/:student_id/:instructor/:activity_name
+example : localhost:3000/delete/student/640610621/paskorn/verilog
+
+8.ลบชื่อนักศึกษาทั้งหมดออกจากกิจกรรม
+DELETE METHOD : localhost:3000/delete/studentall/:instructor/:activity_name
+example : localhost:3000/delete/student/all/paskorn/verilog
 
 *************รายละเอียดต่างๆ coming soon*************
