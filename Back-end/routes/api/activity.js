@@ -3,7 +3,7 @@ const connection = require("../../db.js");
 const router = express.Router();
 
 // Add activity from instructor to database
-router.post("/add", async (req, res) => {
+router.post("/", async (req, res) => {
   const { act_name, instructor, description, date } = req.body;
 
   try {
@@ -28,21 +28,17 @@ router.post("/add", async (req, res) => {
 });
 
 // Get all activity from instructor
-router.get("/get/from/:instructor", async (req, res) => {
-  const instructor = req.params.instructor;
+router.get("/instructor", async (req, res) => {
+  const instructor = req.query.name;
 
   try {
     connection.query(
       "SELECT * FROM activity WHERE instructor = ?",
       [instructor],
       (err, results, fields) => {
-        let found = results.some(
-          (act) => act.instructor === req.params.instructor.toString()
-        );
+        let found = results.some((act) => act.instructor === instructor);
         if (!found) {
-          return res
-            .status(404)
-            .json({ msg: `No activity data from ${req.params.instructor}` });
+          return res.status(404).json({ msg: "Not found activity" });
         }
         res.status(200).json(results);
       }
@@ -54,8 +50,8 @@ router.get("/get/from/:instructor", async (req, res) => {
 });
 
 //Get all activity that student participate in
-router.get("/get/in/:student_id", async (req, res) => {
-  const student_id = req.params.student_id;
+router.get("/student", async (req, res) => {
+  const student_id = req.query.id;
 
   try {
     connection.query(
@@ -65,7 +61,7 @@ router.get("/get/in/:student_id", async (req, res) => {
         let notfound = results.length === 0;
         if (notfound) {
           return res.status(404).json({
-            msg: `No activity in this student`,
+            msg: "Not found activity in this student",
           });
         }
         res.status(200).json(results);
@@ -78,9 +74,9 @@ router.get("/get/in/:student_id", async (req, res) => {
 });
 
 //Delete single activity
-router.delete("/activity/:instructor/:activity_name", async (req, res) => {
-  const activity_name = req.params.activity_name;
-  const instructor = req.params.instructor;
+router.delete("/", async (req, res) => {
+  const activity_name = req.query.act_name;
+  const instructor = req.query.instructor;
 
   //If activity was deleted it will automatically delete students in activity too
   try {
@@ -93,9 +89,7 @@ router.delete("/activity/:instructor/:activity_name", async (req, res) => {
           return res.status(400).send();
         }
         if (results.affectedRows === 0) {
-          return res
-            .status(404)
-            .json({ msg: `No activity from ${instructor}` });
+          return res.status(404).json({ msg: "Not found activity to deleted" });
         }
         return res.status(200).json({ msg: "Activity deleted successfully" });
       }
