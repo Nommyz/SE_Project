@@ -2,8 +2,8 @@
 1.เพิ่มกิจกรรมที่อาจารย์กดสร้างไว้ใน database
 POST METHOD : localhost:3000/activity
 example parameter : {
-                        "act_name" : "verilog",
-                        "instructor": "paskorn",
+                        "act_name" : "calculusforfun",
+                        "instructor": "thanatip",
                         "description" : "oooooooooo",
                         "date" : "2024-10-24"
                     }
@@ -11,35 +11,48 @@ example parameter : {
 2.เพิ่มนักศึกษาลงไปในกิจกรรมที่อาจารย์สร้างไว้
 POST METHOD : localhost:3000/student
 example parameter : {
-                        "act_name" : "verilog",
-                        "instructor" : "paskorn" ,
+                        "act_name" : "calculusforfun",
+                        "instructor" : "thanatip" ,
                         "std_fname" : "kasiyot",
                         "std_lname": "hanphairot",
                         "std_id" : 640610621
                     }
 
-3.แสดงข้อมูลนักศึกษาทั้งหมดที่ผ่านจากกิจกรรม
+3.เพิ่มทักษะลงไปในกิจกรรม
+POST METHOD : localhost:3000/skill
+example parameter : {
+                        "act_name" : "calculusforfun",
+                        "instructor" : "thanatip" ,
+                        "skill_type" : "teamwork"
+                    }
+
+4.แสดงข้อมูลนักศึกษาทั้งหมดที่ผ่านจากกิจกรรม
 GET METHOD : localhost:3000/student/all?act_name=?&instructor=?
-example : localhost:3000/student/all?act_name=verilog&instructor=paskorn
+example : localhost:3000/student/all?act_name=calculusforfun&instructor=thanatip
 
-4.แสดงข้อมูลกิจกรรมทั้งหมดที่อาจารย์เป็นคนสร้างขึ้นมา
+5.แสดงข้อมูลกิจกรรมทั้งหมดที่อาจารย์เป็นคนสร้างขึ้นมา
 GET METHOD : localhost:3000/activity/instructor?name=?
-example : localhost:3000/activity/instructor?name=paskorn
+example : localhost:3000/activity/instructor?name=thanatip
 
-5.แสดงข้อมูลกิจกรรมทั้งหมดที่นักศึกษาเข้าร่วม
+6.แสดงข้อมูลกิจกรรมทั้งหมดที่นักศึกษาเข้าร่วม
 GET METHOD : localhost:3000/activity/student?id=?
 example : localhost:3000/activity/student?id=640610621
 
-6.ลบกิจกรรมที่สร้างไว้
+7.แสดงทักษะทั้งหมดที่ได้รับของกิจกรรมนั้น
+GET METHOD : localhost:3000/skill/?act_name=?&instructor=?
+example : localhost:3000/skill/?act_name=calculusforfun&instructor=thanatip
+
+8.ลบกิจกรรมที่สร้างไว้
 DELETE METHOD : localhost:3000/activity?act_name=?&instructor=?
-example : localhost:3000/activity?act_name=verilog&instructor=paskorn
+example : localhost:3000/activity?act_name=calculusforfun&instructor=thanatip
 
-7.ลบชื่อนักศึกษาออกจากกิจกรรมนั้นๆ
+9.ลบชื่อนักศึกษาออกจากกิจกรรมนั้นๆ
 DELETE METHOD : localhost:3000/student?id=?&act_name=?&instructor=?
-example : localhost:3000/student?id=640610621&act_name=verilog&instructor=paskorn
+example : localhost:3000/student?id=640610621&act_name=calculusforfun&instructor=thanatip
 
-8.ลบชื่อนักศึกษาทั้งหมดออกจากกิจกรรมนั้นๆ
+10.ลบชื่อนักศึกษาทั้งหมดออกจากกิจกรรมนั้นๆ
 DELETE METHOD : localhost:3000/student/all?act_name=?&instructor=?
-example : localhost:3000/student/all?act_name=verilog&instructor=paskorn
+example : localhost:3000/student/all?act_name=calculusforfun&instructor=thanatip
+
 
 *************รายละเอียดต่างๆ coming soon*************
