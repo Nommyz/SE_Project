@@ -13,3 +13,6 @@ log example
 
 2/2/2024
 	สร้าง api ในการเก็บ/แสดง ทักษะของกิจกรรม
+
+5/2/2024
+	เพิ่ม front end file ประกอบด้วย login page , studentdashboard และ teacherboard ยังไม่สมบรูณ์
