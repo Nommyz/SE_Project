@@ -14,9 +14,7 @@
 
 1. clone this repository
 2. right-click on back-end folder and choose Open In Integrated Terminal
-3. run **npm init -y** on your terminal
-4. run **npm i express mysql nodemon** on your terminal
-5. open xampp control panel and click start on Apache and MySQL
-6. click Admin on MySQL to open the database
-7. run **npm run dev** on your terminal to start the server
-8. open postman api for test api
+3. open xampp control panel and click start on Apache and MySQL
+4. click Admin on MySQL to open the database
+5. run **npm run dev** on your terminal to start the server
+6. open postman api for test api
