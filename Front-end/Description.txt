@@ -1,0 +1,19 @@
+โปรดอ่านก่อนทำ
+
+** ใช้ vite+react ทำ Front-end สามารถทำความเข้าใจได้ที่นี่ https://devahoy.com/create-react-with-vite/ **
+
+1.ให้ clone git จากเว็บโปรเจ็ค
+2.เข้า file path โฟล์เดอร์ Front-end จากนั้นติดตั้ง node โดย npm install 
+(ถ้าสามารถ push จะดีมาก เพราะนี่ไม่สามารถ push ได้ไฟล์ ประมาณ 20K)
+3.ข้อนี้ ชั่วคราวจนกว่าจะสามารถ login โดย CMU 
+    - เพิ่มไฟล์ .env ใน path Front-end 
+    - ก็อปด้านล่างใส่ไว้เพื่อให้สามารถเชื่อม firebase เพื่อจำลองเท่านั้น
+VITE_FIREBASE_API_KEY=AIzaSyCCuuNK0Y0ifkWgH4tjxSajVY6iKFliFIk
+VITE_FIREBASE_AUTH_DOMAIN=se-project-a1cd3.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=se-project-a1cd3
+VITE_FIREBASE_APP_ID=1:123556697545:web:46cd5d1d2a6d1365044418
+
+4.สามารถ npm ren dev ได้เลย
+    - email 
+student dashboard คือ student@cmu.ac.th     s00001
+teacher dashboard คือ teacher@cmu.ac.th     t00001
