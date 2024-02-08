@@ -1,11 +1,9 @@
 const express = require("express");
 const basicInfo = express.Router();
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-basicInfo.use(cookieParser());
 
 basicInfo.get("/", async (req, res) => {
-  const token = req.cookies["cmu-oauth-token"];
+  const token = req.query.token;
 
   if (typeof token !== "string") {
     return res.status(401).json({ ok: false, message: "Invalid token" });
@@ -19,6 +17,7 @@ basicInfo.get("/", async (req, res) => {
       firstName: decoded.firstName,
       lastName: decoded.lastName,
       studentId: decoded.studentId,
+      organizationName: decoded.organizationName,
     });
   } catch (error) {
     return res.status(401).json({ ok: false, message: "Invalid token" });

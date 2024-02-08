@@ -28,7 +28,7 @@ student.get("/all", async (req, res) => {
   const instructor = req.query.instructor;
 
   try {
-    const listOfStudent = await Activity.findAll({
+    const listOfStudent = await Student.findAll({
       where: { instructor: instructor, act_name: activity_name },
     });
     let notfound = listOfStudent.length === 0;

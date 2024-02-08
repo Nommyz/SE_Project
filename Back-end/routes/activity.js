@@ -27,6 +27,7 @@ activity.post("/", async (req, res) => {
 activity.get("/instructor", async (req, res) => {
   const instructor = req.query.name;
 
+  console.log("hello");
   try {
     const listOfActivity = await Activity.findAll({
       where: { instructor: instructor },
