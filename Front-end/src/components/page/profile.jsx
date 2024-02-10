@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import Logout from "./logout";
 
 export default function Profile() {
   const [fullName, setFullName] = useState("");
@@ -46,6 +47,7 @@ export default function Profile() {
       <p>{studentId}</p>
       <p>{organizationName}</p>
       <p className="text-danger">{errorMessage}</p>
+      <Logout />
     </div>
   );
 }
