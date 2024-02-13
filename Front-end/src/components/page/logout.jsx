@@ -16,8 +16,12 @@ export default function Logout() {
   }
 
   return (
-    <div className="p-3">
-      <button className="btn btn-danger mb-3" onClick={Signout}>
+    <div>
+      <button
+        className="btn btn-danger rounded-0"
+        style={{ width: "165px" }}
+        onClick={Signout}
+      >
         {errorMessage ? "Go back" : "Sign out"}
       </button>
       <p className="text-danger">{errorMessage}</p>

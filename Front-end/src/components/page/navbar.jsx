@@ -2,13 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Logout from "./logout";
+import { useNavigate } from "react-router-dom";
 
-export default function Profile() {
+export default function Navbar() {
   const [fullName, setFullName] = useState("");
-  const [cmuAccount, setCmuAccount] = useState("");
-  const [studentId, setStudentId] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  function Profile() {
+    navigate("/profile");
+  }
 
   useEffect(() => {
     axios
@@ -20,9 +22,6 @@ export default function Profile() {
       .then((response) => {
         if (response.data.ok) {
           setFullName(response.data.firstName + " " + response.data.lastName);
-          setCmuAccount(response.data.cmuAccount);
-          setStudentId(response.data.studentId ?? "No Student Id");
-          setOrganizationName(response.data.organizationName);
         }
       })
       .catch((error) => {
@@ -41,12 +40,32 @@ export default function Profile() {
   }, []);
 
   return (
-    <div style={{ padding: "17%" }}>
-      <h1>Hi, {fullName}</h1>
-      <p>{cmuAccount}</p>
-      <p>{studentId}</p>
-      <p>{organizationName}</p>
-      <p className="text-danger">{errorMessage}</p>
-    </div>
+    <nav className="navbar bg-black">
+      <div className="dropdown d-block" style={{ marginLeft: "auto" }}>
+        <button
+          className="btn btn-dark dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {fullName}
+        </button>
+        <ul className="dropdown-menu" style={{ height: "5px" }}>
+          <li>
+            <button
+              className="ml-5 btn btn-dark rounded-0"
+              style={{ width: "165px" }}
+              type="button"
+              onClick={Profile}
+            >
+              Profile
+            </button>
+          </li>
+          <li>
+            <Logout />
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
 }
