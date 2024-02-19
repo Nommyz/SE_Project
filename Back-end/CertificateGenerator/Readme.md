@@ -12,7 +12,8 @@ All you need
 
 ### Pillow module
 
-Using the [pillow module](https://pypi.org/project/Pillow/) to make changes.
+Using the [pillow module](https://pypi.org/project/Pillow/) to make changes (Don't forget to install pillow).
+
 <br>
 
 ### Names 
