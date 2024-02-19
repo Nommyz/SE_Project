@@ -15,10 +15,11 @@ All you need
 Using the [pillow module](https://pypi.org/project/Pillow/) to make changes.
 <br>
 
-### Names
+### Names 
 
 - Using `readlines()` method with a `.txt` format.
 
+**Beware if you run this that mean 153 certificates will generate on your PC may cause your PC to explode**
 ```python
 names = []
 
@@ -26,6 +27,8 @@ with open('names.txt') as f:
     content = f.readlines()
     for item in content:
         names.append(item[:-1].title())
+for name in names:
+  make_certificates(name)
 ```
 <br>
 
@@ -34,6 +37,8 @@ with open('names.txt') as f:
 ```python
 import pandas
 names = pandas.read_csv('names.csv', sep='#')
+for name in names:
+  make_certificates(name)
 ```
 
 <br>
