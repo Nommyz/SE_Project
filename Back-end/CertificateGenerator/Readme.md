@@ -23,7 +23,7 @@ Using the [pillow module](https://pypi.org/project/Pillow/) to make changes.
 ```python
 names = []
 
-with open('names.txt') as f:
+with open('Back-end/CertificateGenerator/names.txt') as f:
     content = f.readlines()
     for item in content:
         names.append(item[:-1].title())
@@ -36,7 +36,7 @@ for name in names:
 
 ```python
 import pandas
-names = pandas.read_csv('names.csv', sep='#')
+names = pandas.read_csv('Back-end/CertificateGenerator/names.csv', sep='#')
 for name in names:
   make_certificates(name)
 ```
