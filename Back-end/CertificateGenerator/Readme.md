@@ -6,7 +6,7 @@ All you need
 - Certificate
   - Design a [simple template](template.png) on [Canva](https://www.canva.com/)
 - Font
-  - A .ttf (True-Type Font) file like [this](/font), can simply be downloaded from [here](https://www.google.com/search?q=download+.ttf+fonts).
+  - A .ttf (True-Type Font) file can simply be downloaded from [here](https://www.google.com/search?q=download+.ttf+fonts).
 - Names
   - Finally, a list of names in a .txt format or a .csv format.
 
