@@ -17,3 +17,6 @@ log example
 5/2/2024
 	implement api for login by using cmu-account
 	เพิ่ม front end file ประกอบด้วย login page , studentdashboard และ teacherboard ยังไม่สมบรูณ์
+
+19/2/2024
+	ลองทำ certificate genrator ด้วย python
