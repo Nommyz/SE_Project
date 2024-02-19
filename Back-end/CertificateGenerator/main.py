@@ -1,10 +1,10 @@
 from PIL import Image, ImageFont, ImageDraw
 
 # Global Variables
-FONT_FILE = ImageFont.truetype(r'font/Lato-Italic.ttf', 120) #change the font here
+FONT_FILE = ImageFont.truetype(r'Back-end/CertificateGenerator/font/Lato-Italic.ttf', 120) #change the font here
 FONT_COLOR = "#000000"
-template_dir = 'template/template2.png'
-
+template_dir = 'Back-end/CertificateGenerator/template/template2.png'
+out_dir = "./Back-end/CertificateGenerator/out/"  # Modify if your output directory should be different
 template = Image.open(template_dir)
 WIDTH, HEIGHT = template.size
 
@@ -24,7 +24,7 @@ def make_certificates(name):
     draw.text(((WIDTH - name_width) / 2, (HEIGHT - name_height) / 2 - 30), name, fill=FONT_COLOR, font=FONT_FILE)
 
     # Saving the certificates in a different directory.
-    image_source.save("./out/" + name +".png")
+    image_source.save(out_dir + name +".png")
     print('Saving Certificate of:', name)        
 
 if __name__ == "__main__":
