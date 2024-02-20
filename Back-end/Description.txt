@@ -54,5 +54,9 @@ example : localhost:3000/student?id=640610621&act_name=calculusforfun&instructor
 DELETE METHOD : localhost:3000/student/all?act_name=?&instructor=?
 example : localhost:3000/student/all?act_name=calculusforfun&instructor=thanatip
 
+11.สร้างเกียรติบัตรจากชื่อนักศึกษา
+GET METHOD : localhost:3000/certificate/:name
+example : localhost:3000/certificate/kasiyot hanphairot
+
 
 *************รายละเอียดต่างๆ coming soon*************
