@@ -10,7 +10,7 @@ WIDTH, HEIGHT = template.size
 
 def make_certificates(name):
     '''Function to save certificates as a .png file'''
-
+   
     image_source = Image.open(template_dir)
     draw = ImageDraw.Draw(image_source)
 
@@ -25,11 +25,11 @@ def make_certificates(name):
 
     # Saving the certificates in a different directory.
     image_source.save(out_dir + name +".png")
-    print('Saving Certificate of:', name)        
+    print('Saving Certificate of:', name)      
 
 if __name__ == "__main__":
 
-    names = ['Mr.Ohm', "Full Name"]
+    names = ['Mr.ohm', "Full Name"]
     for name in names:
         make_certificates(name)
 

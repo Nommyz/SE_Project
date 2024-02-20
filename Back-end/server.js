@@ -16,6 +16,7 @@ app.use("/skill", require("./routes/skill"));
 app.use("/cmuOAuthCallback", require("./routes/cmuOAuthCallback"));
 app.use("/basicInfo", require("./routes/basicInfo"));
 app.use("/login", require("./routes/login"));
+app.use("/certificate", require("./routes/certificate"));
 
 db.sequelize.sync().then(() => {
   app.listen(3000, () => console.log("Server is running on port 3000"));
