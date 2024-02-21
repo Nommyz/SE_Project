@@ -47,18 +47,19 @@ activity.get("/student", async (req, res) => {
   const student_id = req.query.id;
 
   try {
-    const results = await db.sequelize.query(
+    const result = await db.sequelize.query(
       "SELECT act_name,description,instructor,date FROM Students NATURAL JOIN Activities WHERE std_id = ?",
       { replacements: [student_id], type: QueryTypes.SELECT }
     );
 
-    let notfound = results.length === 0;
+    let notfound = result.length === 0;
     if (notfound) {
       return res.status(404).json({
         msg: "Not found activity in this student",
       });
     }
-    return res.status(200).json(results);
+
+    return res.status(200).json(result);
   } catch (err) {
     console.log(err);
     return res.status(500).send();

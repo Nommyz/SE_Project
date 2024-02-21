@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
           model: "Activities",
           key: "act_name",
         },
+        primaryKey: true,
         onDelete: "CASCADE",
       },
       instructor: {

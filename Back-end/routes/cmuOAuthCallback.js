@@ -77,7 +77,7 @@ cmuOAuthCallback.get("/", async (req, res) => {
     );
 
     res.cookie("cmu-oauth-token", token, {
-      maxAge: 900000, //millisecond
+      maxAge: 9000000, //millisecond
       httpOnly: false,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",

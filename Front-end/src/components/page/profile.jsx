@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import Logout from "./logout";
 
-export default function Profile() {
+export default function Profile(props) {
   const [fullName, setFullName] = useState("");
   const [cmuAccount, setCmuAccount] = useState("");
   const [studentId, setStudentId] = useState("");
