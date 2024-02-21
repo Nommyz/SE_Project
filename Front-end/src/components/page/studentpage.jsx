@@ -38,8 +38,6 @@ export default function StudentPage() {
       });
   }, []);
 
-  const id = "1111";
-
   return (
     <div>
       <Navbar fullName={fullName} />
