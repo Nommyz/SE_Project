@@ -1,6 +1,8 @@
 const express = require("express");
 const skill = express.Router();
 const { Skill } = require("../models");
+const db = require("../models");
+const { QueryTypes } = require("sequelize");
 
 // Add skills into activity
 skill.post("/", async (req, res) => {
@@ -23,21 +25,20 @@ skill.post("/", async (req, res) => {
 
 //Get skills for each activity
 skill.get("/", async (req, res) => {
-  const activity_name = req.query.act_name;
-  const instructor = req.query.instructor;
+  const student_id = req.query.id;
 
   try {
-    const listOfSkill = await Skill.findAll({
-      where: { instructor: instructor, act_name: activity_name },
-      attributes: ["skill_type"],
-    });
-    let notfound = listOfSkill.length === 0;
+    const result = await db.sequelize.query(
+      "SELECT act_name,instructor,skill_type FROM Skills NATURAL JOIN Students WHERE std_id = ?",
+      { replacements: [student_id], type: QueryTypes.SELECT }
+    );
+    let notfound = result.length === 0;
     if (notfound) {
       return res
         .status(404)
         .json({ msg: "Not found skill from this activity" });
     }
-    return res.status(200).json(listOfSkill);
+    return res.status(200).json(result);
   } catch (err) {
     console.log(err);
     return res.status(500).send();

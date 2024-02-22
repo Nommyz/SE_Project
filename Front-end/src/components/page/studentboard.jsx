@@ -13,6 +13,7 @@ import moment from "moment";
 
 export default function Studentboard(props) {
   const [items, setItems] = useState([]);
+  const [skills, setSkill] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -20,6 +21,16 @@ export default function Studentboard(props) {
       .get(`http://localhost:3000/activity/student?id=${props.studentId}`)
       .then((response) => {
         setItems(response.data);
+      })
+      .catch((error) => {
+        setErrorMessage(
+          "Cannot connect to the network. Please try again later."
+        );
+      });
+    axios
+      .get(`http://localhost:3000/skill/?id=${props.studentId}`)
+      .then((response) => {
+        setSkill(response.data);
       })
       .catch((error) => {
         setErrorMessage(
@@ -86,15 +97,36 @@ export default function Studentboard(props) {
                   alignContent: "center",
                 }}
               >
-                <TableCell component="th" scope="row" align="center">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="center"
+                  style={{ fontWeight: "bold" }}
+                >
                   {row.act_name}
                 </TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center">{row.instructor}</TableCell>
-                <TableCell align="center">
+                <TableCell
+                  align="center"
+                  style={{ textDecoration: "underline", fontWeight: "bold" }}
+                >
+                  Download
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                  {row.instructor}
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: "bold" }}>
                   {moment(row.date).utc().format("YYYY-MM-DD")}
                 </TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                  {skills
+                    .filter(
+                      (data) =>
+                        data.act_name === row.act_name &&
+                        data.instructor === row.instructor
+                    )
+                    .map((data) => data.skill_type)
+                    .join(", ")}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
