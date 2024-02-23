@@ -69,6 +69,7 @@ cmuOAuthCallback.get("/", async (req, res) => {
         lastName: cmuBasicInfo.lastname_EN,
         studentId: cmuBasicInfo.student_id, //Note that not everyone has this. Teachers and CMU Staffs don't have student id!
         organizationName: cmuBasicInfo.organization_name_EN,
+        itaccounttypeId: cmuBasicInfo.itaccounttype_id,
       },
       process.env.JWT_SECRET,
       {

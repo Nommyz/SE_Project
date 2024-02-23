@@ -25,11 +25,11 @@ student.post("/", async (req, res) => {
 //Get all student from activity
 student.get("/all", async (req, res) => {
   const activity_name = req.query.act_name;
-  const instructor = req.query.instructor;
+  const instructor_id = req.query.instructor_id;
 
   try {
     const listOfStudent = await Activity.findAll({
-      where: { instructor: instructor, act_name: activity_name },
+      where: { instructor_id: instructor_id, act_name: activity_name },
     });
     let notfound = listOfStudent.length === 0;
     if (notfound) {
@@ -47,14 +47,14 @@ student.get("/all", async (req, res) => {
 //Delete student by using student id
 student.delete("/", async (req, res) => {
   const student_id = req.query.id;
-  const instructor = req.query.instructor;
+  const instructor_id = req.query.instructor_id;
   const activity_name = req.query.act_name;
 
   try {
     await Student.destroy({
       where: {
         act_name: activity_name,
-        instructor: instructor,
+        instructor_id: instructor_id,
         std_id: student_id,
       },
     }).then(function (rowDeleted) {
@@ -73,13 +73,13 @@ student.delete("/", async (req, res) => {
 //Delete all student
 student.delete("/all", async (req, res) => {
   const activity_name = req.query.act_name;
-  const instructor = req.query.instructor;
+  const instructor_id = req.query.instructor_id;
 
   try {
     await Student.destroy({
       where: {
         act_name: activity_name,
-        instructor: instructor,
+        instructor_id: instructor_id,
       },
     }).then(function (rowDeleted) {
       if (rowDeleted >= 1) {

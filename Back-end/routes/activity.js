@@ -24,14 +24,16 @@ activity.post("/", async (req, res) => {
 });
 
 // Get all activity from instructor
-activity.get("/instructor", async (req, res) => {
-  const instructor = req.query.name;
+activity.get("/", async (req, res) => {
+  const instructor_id = req.query.id;
 
   try {
     const listOfActivity = await Activity.findAll({
-      where: { instructor: instructor },
+      where: { instructor_id: instructor_id },
     });
-    let found = listOfActivity.some((act) => act.instructor === instructor);
+    let found = listOfActivity.some(
+      (act) => act.instructor_id === instructor_id
+    );
     if (!found) {
       return res.status(404).json({ msg: "Not found activity" });
     }
@@ -48,7 +50,7 @@ activity.get("/student", async (req, res) => {
 
   try {
     const result = await db.sequelize.query(
-      "SELECT act_name,description,instructor,date FROM Students NATURAL JOIN Activities WHERE std_id = ?",
+      "SELECT instructor_id,act_name,description,instructor,date FROM Students NATURAL JOIN Activities WHERE std_id = ?",
       { replacements: [student_id], type: QueryTypes.SELECT }
     );
 
@@ -69,11 +71,11 @@ activity.get("/student", async (req, res) => {
 //Delete single activity
 activity.delete("/", async (req, res) => {
   const activity_name = req.query.act_name;
-  const instructor = req.query.instructor;
+  const instructor_id = req.query.id;
 
   try {
     await Activity.destroy({
-      where: { act_name: activity_name, instructor: instructor },
+      where: { act_name: activity_name, instructor_id: instructor_id },
     }).then(function (rowDeleted) {
       if (rowDeleted === 1) {
         return res.status(200).json({ msg: "Activity deleted successfully" });

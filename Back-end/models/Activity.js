@@ -5,15 +5,18 @@ module.exports = (sequelize, DataTypes) => {
   const Activity = sequelize.define(
     "Activity",
     {
-      act_name: {
+      instructor_id: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
       },
+      act_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       instructor: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
       },
       description: {
         type: DataTypes.STRING,

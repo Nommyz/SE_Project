@@ -29,7 +29,7 @@ skill.get("/", async (req, res) => {
 
   try {
     const result = await db.sequelize.query(
-      "SELECT act_name,instructor,skill_type FROM Skills NATURAL JOIN Students WHERE std_id = ?",
+      "SELECT instructor_id,act_name,skill_type FROM Skills NATURAL JOIN Students WHERE std_id = ?",
       { replacements: [student_id], type: QueryTypes.SELECT }
     );
     let notfound = result.length === 0;

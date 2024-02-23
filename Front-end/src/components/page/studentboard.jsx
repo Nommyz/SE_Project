@@ -89,7 +89,7 @@ export default function Studentboard(props) {
           <TableBody>
             {items.map((row) => (
               <TableRow
-                key={row.act_name}
+                key={row.instructor_id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 2 },
                   minWidth: "1500px",
@@ -122,7 +122,7 @@ export default function Studentboard(props) {
                     .filter(
                       (data) =>
                         data.act_name === row.act_name &&
-                        data.instructor === row.instructor
+                        data.instructor_id === row.instructor_id
                     )
                     .map((data) => data.skill_type)
                     .join(", ")}

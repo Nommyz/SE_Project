@@ -5,22 +5,24 @@ module.exports = (sequelize, DataTypes) => {
   const Skill = sequelize.define(
     "Skill",
     {
-      act_name: {
+      instructor_id: {
         type: DataTypes.STRING,
         allowNull: false,
         references: {
           model: "Activities",
-          key: "act_name",
+          key: "instructor_id",
         },
+        primaryKey: true,
         onDelete: "CASCADE",
       },
-      instructor: {
+      act_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       skill_type: {
         type: DataTypes.STRING,
         allowNull: false,
+        primaryKey: true,
       },
     },
     { timestamps: false }

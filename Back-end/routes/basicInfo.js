@@ -18,6 +18,7 @@ basicInfo.get("/", async (req, res) => {
       lastName: decoded.lastName,
       studentId: decoded.studentId,
       organizationName: decoded.organizationName,
+      itaccounttypeId: decoded.itaccounttypeId,
     });
   } catch (error) {
     return res.status(401).json({ ok: false, message: "Invalid token" });

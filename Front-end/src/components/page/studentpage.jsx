@@ -4,11 +4,13 @@ import Studentboard from "./studentboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentPage() {
   const [fullName, setFullName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -18,9 +20,14 @@ export default function StudentPage() {
         },
       })
       .then((response) => {
-        if (response.data.ok) {
+        if (response.data.ok && response.data.itaccounttypeId === "StdAcc") {
           setFullName(response.data.firstName + " " + response.data.lastName);
           setStudentId(response.data.studentId ?? "No Student Id");
+        } else if (
+          response.data.ok &&
+          response.data.itaccounttypeId === "MISEmpAcc"
+        ) {
+          navigate("/teacherboard");
         }
       })
       .catch((error) => {
