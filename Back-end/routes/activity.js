@@ -71,7 +71,7 @@ activity.get("/student", async (req, res) => {
 //Delete single activity
 activity.delete("/", async (req, res) => {
   const activity_name = req.query.act_name;
-  const instructor_id = req.query.id;
+  const instructor_id = req.query.instructor_id;
 
   try {
     await Activity.destroy({

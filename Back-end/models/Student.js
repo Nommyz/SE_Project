@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       act_name: {
         type: DataTypes.STRING,
         allowNull: false,
+        primaryKey: true,
       },
       instructor: {
         type: DataTypes.STRING,
