@@ -10,7 +10,7 @@ export default function Navbar(props) {
 
   return (
     <nav className="navbar bg-black">
-      <div className="dropdown d-block" style={{ marginLeft: "auto" }}>
+      <div className="dropdown d-block" style={{ marginLeft: "auto" , paddingRight:"10px"}}>
         <button
           className="btn btn-dark dropdown-toggle"
           type="button"
