@@ -2,6 +2,8 @@ const express = require("express");
 const certificate = express.Router();
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
+const db = require("../models");
+const { QueryTypes } = require("sequelize");
 
 certificate.get("/:name", async (req, res) => {
   const name = req.params.name;
@@ -12,7 +14,9 @@ certificate.get("/:name", async (req, res) => {
   });
 
   // Pipe the PDF into an name.pdf file
-  doc.pipe(fs.createWriteStream(`CertificateGenerator/out/${name}.pdf`));
+  doc.pipe(
+    fs.createWriteStream(`CertificateGenerator/out/${name.toLowerCase()}.pdf`)
+  );
 
   // Draw the certificate image
   doc.image("CertificateGenerator/template/template2.png", 0, 0, {

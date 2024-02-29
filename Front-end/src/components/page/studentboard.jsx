@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { AiOutlinePrinter } from "react-icons/ai";
+import "./studentboard.css";
 
 export default function Studentboard(props) {
   const [items, setItems] = useState([]);
@@ -39,6 +41,11 @@ export default function Studentboard(props) {
       });
   }, [props.studentId]);
 
+  const downloadCertificate = (fullname) => {
+    axios.get(`http://localhost:3000/certificate/${fullname}`);
+
+    window.location.href = `http://localhost:5173/@fs/D:/SE_Project/Back-end/CertificateGenerator/out/${fullname}.pdf`;
+  };
   return (
     <div
       style={{
@@ -64,12 +71,6 @@ export default function Studentboard(props) {
                 align="center"
                 sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
               >
-                เกียรติบัตร
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
-              >
                 ผู้จัดกิจกรรม
               </TableCell>
               <TableCell
@@ -84,6 +85,10 @@ export default function Studentboard(props) {
               >
                 ทักษะที่ได้รับ
               </TableCell>
+              <TableCell
+                align="center"
+                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+              ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -109,9 +114,6 @@ export default function Studentboard(props) {
                   align="center"
                   style={{ textDecoration: "underline", fontWeight: "bold" }}
                 >
-                  Download
-                </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
                   {row.instructor}
                 </TableCell>
                 <TableCell align="center" style={{ fontWeight: "bold" }}>
@@ -126,6 +128,16 @@ export default function Studentboard(props) {
                     )
                     .map((data) => data.skill_type)
                     .join(", ")}
+                </TableCell>
+                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                  <button
+                    className="printer-btn"
+                    onClick={() => {
+                      downloadCertificate(props.fullName.toLowerCase());
+                    }}
+                  >
+                    <AiOutlinePrinter size={25} />
+                  </button>
                 </TableCell>
               </TableRow>
             ))}

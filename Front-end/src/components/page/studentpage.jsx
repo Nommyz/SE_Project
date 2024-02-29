@@ -48,7 +48,7 @@ export default function StudentPage() {
   return (
     <div>
       <Navbar fullName={fullName} />
-      <Studentboard studentId={studentId} />
+      <Studentboard studentId={studentId} fullName={fullName} />
     </div>
   );
 }
