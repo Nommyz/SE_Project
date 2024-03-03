@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { AiOutlinePrinter } from "react-icons/ai";
 import "./studentboard.css";
+import certificate from "../../../../Back-end/CertificateGenerator/out/kasiyot hanphairot.pdf";
 
 export default function Studentboard(props) {
   const [items, setItems] = useState([]);
@@ -44,7 +45,7 @@ export default function Studentboard(props) {
   const downloadCertificate = (fullname) => {
     axios.get(`http://localhost:3000/certificate/${fullname}`);
 
-    window.location.href = `http://localhost:5173/@fs/D:/SE_Project/Back-end/CertificateGenerator/out/${fullname}.pdf`;
+    window.location.assign(certificate);
   };
   return (
     <div
