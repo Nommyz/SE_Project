@@ -5,10 +5,6 @@ module.exports = (sequelize, DataTypes) => {
   const Activity = sequelize.define(
     "Activity",
     {
-      instructor_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       act_name: {
         type: DataTypes.STRING,
         allowNull: false,

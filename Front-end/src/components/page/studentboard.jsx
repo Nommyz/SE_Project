@@ -117,7 +117,7 @@ export default function Studentboard(props) {
             {items.map((row) => (
               <TableRow
                 hover
-                key={row.instructor_id}
+                key={row.instructor}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 2 },
                   minWidth: "1500px",
@@ -150,7 +150,7 @@ export default function Studentboard(props) {
                     borderBottom: "2.5px solid",
                   }}
                 >
-                  {row.instructor}
+                  {row.instructor.toLowerCase()}
                 </TableCell>
                 <TableCell
                   align="center"
@@ -178,7 +178,7 @@ export default function Studentboard(props) {
                     .filter(
                       (data) =>
                         data.act_name === row.act_name &&
-                        data.instructor_id === row.instructor_id
+                        data.instructor === row.instructor
                     )
                     .map((data) => data.skill_type)
                     .join(", ")}
@@ -196,7 +196,7 @@ export default function Studentboard(props) {
                   <button
                     className="printer-btn"
                     onClick={() => {
-                      downloadCertificate(props.fullName.toLowerCase());
+                      downloadCertificate(props.fullName);
                     }}
                   >
                     <AiOutlinePrinter size={25} />

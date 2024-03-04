@@ -23,11 +23,12 @@ export default function StudentPage() {
         if (response.data.ok && response.data.itaccounttypeId === "StdAcc") {
           setFullName(response.data.firstName + " " + response.data.lastName);
           setStudentId(response.data.studentId ?? "No Student Id");
+          navigate("/teacherpage");
         } else if (
           response.data.ok &&
           response.data.itaccounttypeId === "MISEmpAcc"
         ) {
-          navigate("/teacherboard");
+          navigate("/teacherpage");
         }
       })
       .catch((error) => {
