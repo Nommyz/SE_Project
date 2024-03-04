@@ -41,7 +41,7 @@ export default function Profile(props) {
 
   return (
     <div style={{ padding: "17%" }}>
-      <h1>Hi, {fullName}</h1>
+      <h1>{fullName}</h1>
       <p>{cmuAccount}</p>
       <p>{studentId}</p>
       <p>{organizationName}</p>

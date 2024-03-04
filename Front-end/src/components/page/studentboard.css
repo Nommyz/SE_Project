@@ -1,0 +1,7 @@
+.printer-btn {
+  border-radius: 6px;
+}
+
+.printer-btn:hover {
+  filter: brightness(90%);
+}

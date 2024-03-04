@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { AiOutlinePrinter } from "react-icons/ai";
 import "./studentboard.css";
-import certificate from "../../../../Back-end/CertificateGenerator/out/kasiyot hanphairot.pdf";
 
 export default function Studentboard(props) {
   const [items, setItems] = useState([]);
@@ -45,7 +44,9 @@ export default function Studentboard(props) {
   const downloadCertificate = (fullname) => {
     axios.get(`http://localhost:3000/certificate/${fullname}`);
 
-    window.location.assign(certificate);
+    window.location.assign(
+      require("../../../../Back-end/CertificateGenerator/out/kasiyot hanphairot.pdf")
+    );
   };
   return (
     <div
@@ -64,37 +65,58 @@ export default function Studentboard(props) {
             <TableRow>
               <TableCell
                 align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+                sx={{
+                  backgroundColor: "#c07fcb",
+                  color: "#ffff",
+                  fontWeight: "bold",
+                }}
               >
                 ชื่อกิจกรรม
               </TableCell>
               <TableCell
                 align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+                sx={{
+                  backgroundColor: "#c07fcb",
+                  color: "#ffff",
+                  fontWeight: "bold",
+                }}
               >
                 ผู้จัดกิจกรรม
               </TableCell>
               <TableCell
                 align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+                sx={{
+                  backgroundColor: "#c07fcb",
+                  color: "#ffff",
+                  fontWeight: "bold",
+                }}
               >
                 วันที่เข้าร่วม
               </TableCell>
               <TableCell
                 align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+                sx={{
+                  backgroundColor: "#c07fcb",
+                  color: "#ffff",
+                  fontWeight: "bold",
+                }}
               >
                 ทักษะที่ได้รับ
               </TableCell>
               <TableCell
                 align="center"
-                sx={{ backgroundColor: "#c07fcb", color: "#ffff" }}
+                sx={{
+                  backgroundColor: "#c07fcb",
+                  color: "#ffff",
+                  fontWeight: "bold",
+                }}
               ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {items.map((row) => (
               <TableRow
+                hover
                 key={row.instructor_id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 2 },
@@ -107,20 +129,51 @@ export default function Studentboard(props) {
                   component="th"
                   scope="row"
                   align="center"
-                  style={{ fontWeight: "bold" }}
+                  style={{
+                    fontWeight: "bold",
+                    borderTop: "none",
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderBottom: "2px solid",
+                  }}
                 >
                   {row.act_name}
                 </TableCell>
                 <TableCell
                   align="center"
-                  style={{ textDecoration: "underline", fontWeight: "bold" }}
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    borderTop: "none",
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderBottom: "2px solid",
+                  }}
                 >
                   {row.instructor}
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    fontWeight: "bold",
+                    borderTop: "none",
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderBottom: "2px solid",
+                  }}
+                >
                   {moment(row.date).utc().format("YYYY-MM-DD")}
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    fontWeight: "bold",
+                    borderTop: "none",
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderBottom: "2px solid",
+                  }}
+                >
                   {skills
                     .filter(
                       (data) =>
@@ -130,7 +183,16 @@ export default function Studentboard(props) {
                     .map((data) => data.skill_type)
                     .join(", ")}
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    fontWeight: "bold",
+                    borderTop: "none",
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderBottom: "2px solid",
+                  }}
+                >
                   <button
                     className="printer-btn"
                     onClick={() => {

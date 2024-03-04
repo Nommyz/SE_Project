@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
       instructor_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          model: "Activities",
-          key: "instructor_id",
-        },
         primaryKey: true,
-        onDelete: "CASCADE",
       },
       act_name: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
+        references: {
+          model: "Activities",
+          key: "act_name",
+        },
+        onDelete: "CASCADE",
       },
       instructor: {
         type: DataTypes.STRING,

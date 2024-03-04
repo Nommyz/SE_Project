@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       instructor_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
       },
       act_name: {
         type: DataTypes.STRING,
