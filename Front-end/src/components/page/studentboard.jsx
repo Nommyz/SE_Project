@@ -134,7 +134,7 @@ export default function Studentboard(props) {
                     borderTop: "none",
                     borderLeft: "none",
                     borderRight: "none",
-                    borderBottom: "2px solid",
+                    borderBottom: "2.5px solid",
                   }}
                 >
                   {row.act_name}
@@ -147,7 +147,7 @@ export default function Studentboard(props) {
                     borderTop: "none",
                     borderLeft: "none",
                     borderRight: "none",
-                    borderBottom: "2px solid",
+                    borderBottom: "2.5px solid",
                   }}
                 >
                   {row.instructor}
@@ -159,7 +159,7 @@ export default function Studentboard(props) {
                     borderTop: "none",
                     borderLeft: "none",
                     borderRight: "none",
-                    borderBottom: "2px solid",
+                    borderBottom: "2.5px solid",
                   }}
                 >
                   {moment(row.date).utc().format("YYYY-MM-DD")}
@@ -171,7 +171,7 @@ export default function Studentboard(props) {
                     borderTop: "none",
                     borderLeft: "none",
                     borderRight: "none",
-                    borderBottom: "2px solid",
+                    borderBottom: "2.5px solid",
                   }}
                 >
                   {skills
@@ -190,7 +190,7 @@ export default function Studentboard(props) {
                     borderTop: "none",
                     borderLeft: "none",
                     borderRight: "none",
-                    borderBottom: "2px solid",
+                    borderBottom: "2.5px solid",
                   }}
                 >
                   <button
