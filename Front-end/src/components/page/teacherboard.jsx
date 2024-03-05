@@ -218,7 +218,7 @@ export default function Teacherboard(props) {
             },
             title: "Error!",
             icon: "error",
-            text: "Event name field must be unique!",
+            text: "Event name is already used!",
           });
         }),
       axios.post(`http://localhost:3000/skill`, {
