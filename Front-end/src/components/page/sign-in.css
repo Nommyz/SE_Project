@@ -1,4 +1,5 @@
 .sign-in {
+  position: relative;
   border-radius: 25px;
   border: 1px solid transparent;
   padding: 0.6em 2em;
@@ -9,8 +10,17 @@
   background-color: #9b59b6;
   cursor: pointer;
   transition: border-color 0.25s;
+  top: 225px;
 }
 
 .sign-in:hover {
   color: white;
+  filter: brightness(90%);
+}
+
+.login-btn {
+  background-image: url("img/actrec.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 21%;
 }
