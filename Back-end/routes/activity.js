@@ -2,7 +2,7 @@ const express = require("express");
 const activity = express.Router();
 const { Activity } = require("../models");
 const db = require("../models");
-const { QueryTypes } = require("sequelize");
+const { QueryTypes, and } = require("sequelize");
 
 // Add activity from instructor to database
 activity.post("/", async (req, res) => {
@@ -32,6 +32,28 @@ activity.get("/", async (req, res) => {
       where: { instructor: instructor },
     });
     let found = listOfActivity.some((act) => act.instructor === instructor);
+    if (!found) {
+      return res.status(404).json({ msg: "Not found activity" });
+    }
+    return res.status(200).json(listOfActivity);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send();
+  }
+});
+
+// Get single activity from instructor
+activity.get("/single", async (req, res) => {
+  const act_name = req.query.act_name;
+  const instructor = req.query.instructor;
+
+  try {
+    const listOfActivity = await Activity.findAll({
+      where: { instructor: instructor, act_name: act_name },
+    });
+    let found = listOfActivity.some(
+      (act) => act.instructor === instructor && act.act_name === act_name
+    );
     if (!found) {
       return res.status(404).json({ msg: "Not found activity" });
     }

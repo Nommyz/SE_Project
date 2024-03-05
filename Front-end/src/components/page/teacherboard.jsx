@@ -29,6 +29,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Swal from "sweetalert2";
+import "./teacherboard.css";
 
 export default function Teacherboard(props) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,9 +37,10 @@ export default function Teacherboard(props) {
   const [actname, setActname] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = React.useState(dayjs());
-  const [act_errmsg, setActErrmsg] = useState("");
-  const [descrip_errmsg, setDescErrmsg] = useState("");
-  const [teamwork, setTeamwork] = useState("");
+  const [preval, setPreval] = useState(false);
+  const [prevactname, setPrevActname] = useState("");
+  const [prevdescription, setPrevDescrip] = useState("");
+  const [prevdate, setPrevDate] = useState("");
 
   useEffect(() => {
     axios
@@ -89,6 +91,18 @@ export default function Teacherboard(props) {
     return [state, toggle];
   };
 
+  const UpdateActivity = (act_name, instructor) => {
+    axios
+      .get(
+        `http://localhost:3000/activity/single?act_name=${act_name}&instructor=${instructor}`
+      )
+      .then((res) => {
+        setPrevActname(res.data[0].act_name);
+        setPrevDate(res.data[0].date);
+        setPrevDescrip(res.data[0].description);
+      });
+  };
+
   const DeleteActivity = (act_name, instructor) => {
     Swal.fire({
       title: "Are you sure you want to delete this activity?",
@@ -113,17 +127,15 @@ export default function Teacherboard(props) {
   };
 
   const saveData = () => {
-    if (actname.length === 0 && description.length === 0) {
-      setActErrmsg("Activity name field is required");
-      setDescErrmsg("Description field is required");
-      return;
-    } else if (actname.length === 0) {
-      setActErrmsg("Activity name field is required");
-      setDescErrmsg("");
-      return;
-    } else if (description.length === 0) {
-      setDescErrmsg("Description field is required");
-      setActErrmsg("");
+    if (actname.length === 0) {
+      Swal.fire({
+        customClass: {
+          container: "my-swal",
+        },
+        title: "Error!",
+        icon: "error",
+        text: "Activity name field is required!",
+      });
       return;
     }
 
@@ -136,12 +148,24 @@ export default function Teacherboard(props) {
           date: date,
         })
         .then((res) => {
-          alert(res.data.message);
-          setActErrmsg("");
-          setDescErrmsg("");
+          Swal.fire({
+            customClass: {
+              container: "my-swal",
+            },
+            title: "Success!",
+            icon: "success",
+            text: "submitted successfully!",
+          });
         })
         .catch((err) => {
-          alert("Activity name must be unique");
+          Swal.fire({
+            customClass: {
+              container: "my-swal",
+            },
+            title: "Error!",
+            icon: "error",
+            text: "Activity name field must be unique!",
+          });
         }),
       axios.post(`http://localhost:3000/skill`, {
         act_name: actname,
@@ -247,6 +271,11 @@ export default function Teacherboard(props) {
                           title="Edit Activity"
                           arrow
                           TransitionComponent={Zoom}
+                          onClick={() => {
+                            toggleOpen(),
+                              setPreval(true),
+                              UpdateActivity(row.act_name, row.instructor);
+                          }}
                         >
                           <IconButton
                             aria-label="edit"
@@ -281,7 +310,9 @@ export default function Teacherboard(props) {
 
         <div>
           <Button
-            onClick={toggleOpen}
+            onClick={() => {
+              toggleOpen(), setPreval(false);
+            }}
             variant="contained"
             color="secondary"
             size="large"
@@ -304,8 +335,6 @@ export default function Teacherboard(props) {
                   <CancelIcon
                     sx={{ color: "red" }}
                     onClick={() => {
-                      setActErrmsg("");
-                      setDescErrmsg("");
                       window.location.reload();
                     }}
                   />
@@ -328,11 +357,10 @@ export default function Teacherboard(props) {
                     marginRight: "50px",
                     marginLeft: "24px",
                   }}
-                  value={actname}
+                  value={preval ? prevactname : actname}
                   onChange={(e) => setActname(e.target.value)}
                 />
               </div>
-              <span style={{ color: "red" }}>{act_errmsg}</span>
               <div
                 style={{
                   display: "flex",
@@ -347,7 +375,7 @@ export default function Teacherboard(props) {
                     sx={{ marginRight: "10px", marginLeft: "20px" }}
                   >
                     <DatePicker
-                      value={date}
+                      value={preval ? dayjs(prevdate) : date}
                       onChange={(newDate) => setDate(newDate)}
                     />
                   </DemoContainer>
@@ -369,10 +397,9 @@ export default function Teacherboard(props) {
                     marginRight: "50px",
                     marginLeft: "50px",
                   }}
-                  value={description}
+                  value={preval ? prevdescription : description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <span style={{ color: "red" }}>{descrip_errmsg}</span>
               </div>
 
               <div
