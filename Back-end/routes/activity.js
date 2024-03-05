@@ -88,6 +88,43 @@ activity.get("/student", async (req, res) => {
   }
 });
 
+activity.patch("/update", async (req, res) => {
+  const activity_name = req.query.act_name;
+  const instructor_name = req.query.instructor;
+
+  const { act_name, instructor, description, date } = req.body;
+  try {
+    const result = await db.sequelize.query(
+      "UPDATE Activities SET act_name = ?,instructor = ?,description = ?,date = ? WHERE act_name = ? AND instructor = ?",
+      {
+        replacements: [
+          act_name,
+          instructor,
+          description,
+          date,
+          activity_name,
+          instructor_name,
+        ],
+        type: QueryTypes.UPDATE,
+      }
+    );
+
+    let notfound = result.length === 0;
+    if (notfound) {
+      return res.status(404).json({
+        msg: "Not found activity to update",
+      });
+    }
+
+    return res
+      .status(200)
+      .json({ msg: "ok", act_name, instructor, description, date });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send();
+  }
+});
+
 //Delete single activity
 activity.delete("/", async (req, res) => {
   const activity_name = req.query.act_name;

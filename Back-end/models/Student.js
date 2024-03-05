@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "act_name",
         },
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       instructor: {
         type: DataTypes.STRING,

@@ -41,6 +41,8 @@ export default function Teacherboard(props) {
   const [prevactname, setPrevActname] = useState("");
   const [prevdescription, setPrevDescrip] = useState("");
   const [prevdate, setPrevDate] = useState("");
+  const [act_val, setActVal] = useState("");
+  const [instructor_val, setInstrucVal] = useState("");
 
   useEffect(() => {
     axios
@@ -68,6 +70,22 @@ export default function Teacherboard(props) {
   const [checkedOne, setCheckedone] = React.useState(true);
   const [checkedTwo, setCheckedtwo] = React.useState(true);
   const [checkedThree, setCheckedthree] = React.useState(true);
+
+  const onChangeDecrip = (e) => {
+    if (preval === true) {
+      setPrevDescrip(e.target.value);
+    } else {
+      setDescription(e.target.value);
+    }
+  };
+
+  const onChangeActname = (e) => {
+    if (preval === true) {
+      setPrevActname(e.target.value);
+    } else {
+      setActname(e.target.value);
+    }
+  };
 
   const handleChangeOne = (event) => {
     setCheckedone(event.target.checked);
@@ -105,7 +123,7 @@ export default function Teacherboard(props) {
 
   const DeleteActivity = (act_name, instructor) => {
     Swal.fire({
-      title: "Are you sure you want to delete this activity?",
+      title: "Are you sure you want to delete this event?",
       icon: "warning",
       showDenyButton: true,
       closeOnConfirm: false,
@@ -127,15 +145,51 @@ export default function Teacherboard(props) {
   };
 
   const saveData = () => {
-    if (actname.length === 0) {
+    if (actname.length === 0 && preval === false) {
       Swal.fire({
         customClass: {
           container: "my-swal",
         },
         title: "Error!",
         icon: "error",
-        text: "Activity name field is required!",
+        text: "Event name field is required!",
       });
+      return;
+    }
+
+    if (preval === true) {
+      if (prevactname.length === 0) {
+        Swal.fire({
+          customClass: {
+            container: "my-swal",
+          },
+          title: "Error!",
+          icon: "error",
+          text: "Event name field is required!",
+        });
+        return;
+      }
+      axios
+        .patch(
+          `http://localhost:3000/activity/update?act_name=${act_val}&instructor=${instructor_val}`,
+          {
+            act_name: prevactname,
+            instructor: props.fullName,
+            description: prevdescription,
+            date: date,
+          }
+        )
+        .then((res) => {
+          Swal.fire({
+            customClass: {
+              container: "my-swal",
+            },
+            title: "Success!",
+            icon: "success",
+            text: "submitted successfully!",
+          });
+        });
+
       return;
     }
 
@@ -164,7 +218,7 @@ export default function Teacherboard(props) {
             },
             title: "Error!",
             icon: "error",
-            text: "Activity name field must be unique!",
+            text: "Event name field must be unique!",
           });
         }),
       axios.post(`http://localhost:3000/skill`, {
@@ -272,9 +326,10 @@ export default function Teacherboard(props) {
                           arrow
                           TransitionComponent={Zoom}
                           onClick={() => {
-                            toggleOpen(),
-                              setPreval(true),
-                              UpdateActivity(row.act_name, row.instructor);
+                            toggleOpen(), setPreval(true);
+                            UpdateActivity(row.act_name, row.instructor);
+                            setActVal(row.act_name);
+                            setInstrucVal(row.instructor);
                           }}
                         >
                           <IconButton
@@ -319,13 +374,13 @@ export default function Teacherboard(props) {
             sx={{ position: "fixed", bottom: "50px", left: "46%" }}
           >
             <AddCircleIcon sx={{ marginRight: "5px" }} />
-            Add Activity
+            Add Event
           </Button>
           <Dialog open={open}>
             <div style={{ width: "600px", height: "500px" }}>
               <div style={{ display: "flex" }}>
                 <h4 style={{ marginLeft: "240px", marginTop: "5px" }}>
-                  Add Activity
+                  Add Event
                 </h4>
                 <IconButton
                   onClick={toggleOpen}
@@ -348,7 +403,7 @@ export default function Teacherboard(props) {
                   marginTop: "10px",
                 }}
               >
-                <h5 style={{ marginLeft: "50px" }}>ชื่อกิจกรรม</h5>
+                <h5 style={{ marginLeft: "50px" }}>Event Name</h5>
                 <TextField
                   id="outlined-basic"
                   variant="outlined"
@@ -358,7 +413,7 @@ export default function Teacherboard(props) {
                     marginLeft: "24px",
                   }}
                   value={preval ? prevactname : actname}
-                  onChange={(e) => setActname(e.target.value)}
+                  onChange={onChangeActname}
                 />
               </div>
               <div
@@ -368,7 +423,7 @@ export default function Teacherboard(props) {
                   marginTop: "10px",
                 }}
               >
-                <h5 style={{ marginLeft: "50px" }}>วัน/เดือน/ปี</h5>
+                <h5 style={{ marginLeft: "50px" }}>Event Date</h5>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
                     components={["DatePicker", "DatePicker"]}
@@ -388,7 +443,7 @@ export default function Teacherboard(props) {
                   marginTop: "10px",
                 }}
               >
-                <h5 style={{ marginLeft: "50px" }}>รายละเอียดเพิ่มเติม</h5>
+                <h5 style={{ marginLeft: "50px" }}>Description for event</h5>
                 <TextField
                   id="outlined-basic"
                   variant="outlined"
@@ -398,7 +453,7 @@ export default function Teacherboard(props) {
                     marginLeft: "50px",
                   }}
                   value={preval ? prevdescription : description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={onChangeDecrip}
                 />
               </div>
 
@@ -409,7 +464,7 @@ export default function Teacherboard(props) {
                   marginTop: "10px",
                 }}
               >
-                <h5 style={{ marginLeft: "50px" }}>สิ่งที่ได้รับ</h5>
+                <h5 style={{ marginLeft: "50px" }}>Experience of event</h5>
                 <button className="btn btn-success" onClick={saveData}>
                   Submit
                 </button>
@@ -443,7 +498,7 @@ export default function Teacherboard(props) {
                         marginRight: "auto",
                       }}
                     >
-                      <h5 style={{ marginLeft: "50px" }}>แนะนำ</h5>
+                      <h5 style={{ marginLeft: "50px" }}>Recommended</h5>
                       <div>
                         <FormControlLabel
                           sx={{ marginLeft: "20px" }}
