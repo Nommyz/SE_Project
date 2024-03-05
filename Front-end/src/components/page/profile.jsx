@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { FaUserAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FcEngineering } from "react-icons/fc";
+import { FaIdCard } from "react-icons/fa";
+import "./profile.css";
 
 export default function Profile(props) {
   const [fullName, setFullName] = useState("");
@@ -40,11 +45,31 @@ export default function Profile(props) {
   }, []);
 
   return (
-    <div style={{ padding: "17%" }}>
-      <h1>{fullName}</h1>
-      <p>{cmuAccount}</p>
-      <p>{studentId}</p>
-      <p>{organizationName}</p>
+    <div
+      style={{
+        padding: "13%",
+        fontWeight: "bold",
+        fontSize: "35px",
+      }}
+    >
+      <p>
+        <FaUserAlt />
+        <span class="space"></span>
+        {fullName}
+      </p>
+      <p>
+        <MdEmail />
+        <span class="space"></span>
+        {cmuAccount}
+      </p>
+      <p>
+        <FaIdCard /> <span class="space"></span>
+        {studentId}
+      </p>
+      <p>
+        <FcEngineering /> <span class="space"></span>
+        {organizationName}
+      </p>
       <p className="text-danger">{errorMessage}</p>
     </div>
   );

@@ -11,6 +11,7 @@ import Homepage from "./components/page/homepage.jsx";
 import StudentPage from "./components/page/studentpage.jsx";
 import Profile from "./components/page/profile.jsx";
 import TeacherPage from "./components/page/teacherpage.jsx";
+import ProfilePage from "./components/page/profilepage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="studentpage" element={<StudentPage />} />
       <Route path="profile" element={<Profile />} />
       <Route path="teacherpage" element={<TeacherPage />} />
+      <Route path="profilepage" element={<ProfilePage />} />
     </>
   )
 );

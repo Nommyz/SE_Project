@@ -5,7 +5,7 @@ export default function Navbar(props) {
   const navigate = useNavigate();
 
   function Profile() {
-    navigate("/profile");
+    navigate("/profilepage");
   }
 
   return (
