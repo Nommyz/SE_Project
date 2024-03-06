@@ -285,6 +285,7 @@ export default function Teacherboard(props) {
   };
 
   const [open, toggleOpen] = useToggle(false);
+  const [openView, toggleOpenView] = useToggle(false);
   const [openAddpeople, toggleOpenAddpeople] = useToggle(false);
   const [openSkill, toggleOpenskill] = useToggle(false);
 
@@ -446,10 +447,34 @@ export default function Teacherboard(props) {
                           <IconButton
                             aria-label="view"
                             sx={{ marginRight: "auto" }}
+                            onClick={() => {                      //เปิดเพิ่มชื่อนักศึกษาเรียบร้อย รอแก้ไข
+                              toggleOpenView()
+                            }}
                           >
                             <VisibilityIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
+                          <Dialog open={openView}>                          {/* //เพิ่มการมองรายชื่อ รอแก้ไข เพิ่มเติม */}
+                              <div style={{width:"600px",height:"500px"}}>
+                                <div style={{display:"flex"}}> 
+                                  <h4 style={{marginLeft:"255px",marginTop:"10px"}}>
+                                    View People
+                                  </h4>
+                                  <IconButton
+                                    onClick={toggleOpenView}
+                                    aria-label="close"
+                                    sx={{ marginLeft: "auto" }}
+                                  >
+                                    <CancelIcon sx={{ color: "red" }} />
+                                  </IconButton>
+                                </div>
+                                <div>
+                                  <div style={{marginLeft:"50px",marginRight:"50px" , marginTop:"20px" , backgroundColor:"#D293E4" , height:"30px" , borderRadius:"10px"}}>
+                                    <h5 style={{marginLeft:"15px"}}>1.anammmm</h5>
+                                  </div>
+                                </div>
+                              </div>
+                          </Dialog>
                         <Tooltip
                           title="Edit Activity"
                           arrow
