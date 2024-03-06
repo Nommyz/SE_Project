@@ -168,17 +168,7 @@ export default function Teacherboard(props) {
   const SubmitStudent = () => {
     let isnum = /^\d+$/.test(studentId);
 
-    if (isnum === false) {
-      Swal.fire({
-        customClass: {
-          container: "my-swal",
-        },
-        title: "Error!",
-        icon: "error",
-        text: "Student ID field must be number!",
-      });
-      return;
-    } else if (studentId.length === 0) {
+    if (studentId.length === 0) {
       Swal.fire({
         customClass: {
           container: "my-swal",
@@ -187,7 +177,16 @@ export default function Teacherboard(props) {
         icon: "error",
         text: "Student ID field is required!",
       });
-
+      return;
+    } else if (isnum === false) {
+      Swal.fire({
+        customClass: {
+          container: "my-swal",
+        },
+        title: "Error!",
+        icon: "error",
+        text: "Student ID field must be number!",
+      });
       return;
     }
 
