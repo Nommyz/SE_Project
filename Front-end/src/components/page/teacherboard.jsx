@@ -240,6 +240,7 @@ export default function Teacherboard(props) {
   };
 
   const [open, toggleOpen] = useToggle(false);
+  const [openAddpeople, toggleOpenAddpeople] = useToggle(false);
   const [openSkill, toggleOpenskill] = useToggle(false);
 
   return (
@@ -301,14 +302,97 @@ export default function Teacherboard(props) {
                           arrow
                           TransitionComponent={Zoom}
                           sx={{ backgroundColor: "#ffff" }}
+                          
                         >
                           <IconButton
                             aria-label="add"
                             sx={{ marginRight: "auto" }}
+                            onClick={() => {                      //เปิดเพิ่มชื่อนักศึกษาเรียบร้อย รอแก้ไข
+                              toggleOpenAddpeople()
+                            }}
                           >
                             <PersonAddIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
+                        <Dialog open={openAddpeople}>
+                              <div style={{width:"600px",height:"500px"}}>
+                                <div style={{display:"flex"}}> 
+                                  <h4 style={{marginLeft:"255px",marginTop:"10px"}}>
+                                    Add People
+                                  </h4>
+                                  <IconButton
+                                    onClick={toggleOpenAddpeople}
+                                    aria-label="close"
+                                    sx={{ marginLeft: "auto" }}
+                                  >
+                                    <CancelIcon sx={{ color: "red" }} />
+                                  </IconButton>
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginTop: "10px",
+                                  }}
+                                >
+                                  <h5 style={{ marginLeft: "50px" }}>Student ID</h5>
+                                  <TextField
+                                    id="outlined-basic"
+                                    variant="outlined"
+                                    sx={{
+                                      width: "360px",
+                                      marginRight: "50px",
+                                      marginLeft: "20px",
+                                    }}
+                                    value={preval ? prevactname : actname}                //รอแก้ไข
+                                    onChange={onChangeActname}
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginTop: "20px",
+                                  }}
+                                >
+                                  <h5 style={{ marginLeft: "65px" }}>Name</h5>
+                                  <TextField
+                                    id="outlined-basic"
+                                    variant="outlined"
+                                    sx={{
+                                      width: "360px",
+                                      marginRight: "50px",
+                                      marginLeft: "47px",
+                                    }}
+                                    value={preval ? prevactname : actname}                  //รอแก้ไข
+                                    onChange={onChangeActname}
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginTop: "20px",
+                                  }}
+                                >
+                                  <h5 style={{ marginLeft: "65px" }}>Email</h5>
+                                  <TextField
+                                    id="outlined-basic"
+                                    variant="outlined"
+                                    sx={{
+                                      width: "360px",
+                                      marginRight: "50px",
+                                      marginLeft: "52px",
+                                    }}
+                                    value={preval ? prevactname : actname}                 //รอแก้ไข
+                                    onChange={onChangeActname}
+                                  />
+                                </div>
+                                <button style={{marginLeft:"42%" , marginTop:"120px" , height:"55px" , width:"100px"}} className="btn btn-success" onClick={saveData}>
+                                  Submit
+                                </button>
+                              </div>
+                            </Dialog>
                         <Tooltip
                           title="View People"
                           arrow
