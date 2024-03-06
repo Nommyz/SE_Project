@@ -20,11 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      std_fname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      std_lname: {
+      std_fullname: {
         type: DataTypes.STRING,
         allowNull: false,
       },

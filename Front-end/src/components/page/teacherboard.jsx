@@ -37,12 +37,15 @@ export default function Teacherboard(props) {
   const [actname, setActname] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = React.useState(dayjs());
+  const [studentId, setStudentId] = useState("");
+  const [studentfullName, setStudentfullName] = useState("");
   const [preval, setPreval] = useState(false);
   const [prevactname, setPrevActname] = useState("");
   const [prevdescription, setPrevDescrip] = useState("");
   const [prevdate, setPrevDate] = useState("");
   const [act_val, setActVal] = useState("");
   const [instructor_val, setInstrucVal] = useState("");
+  const [act_n, setAct_n] = useState("");
 
   useEffect(() => {
     axios
@@ -142,6 +145,48 @@ export default function Teacherboard(props) {
         Swal.fire("Deletes are not saved");
       }
     });
+  };
+
+  const SubmitStudent = () => {
+    if (studentId.length === 0) {
+      Swal.fire({
+        customClass: {
+          container: "my-swal",
+        },
+        title: "Error!",
+        icon: "error",
+        text: "Student ID field is required!",
+      });
+      return;
+    }
+
+    axios
+      .post("http://localhost:3000/student", {
+        act_name: act_n,
+        instructor: props.fullName,
+        std_fullname: studentfullName.toUpperCase(),
+        std_id: studentId,
+      })
+      .then((res) => {
+        Swal.fire({
+          customClass: {
+            container: "my-swal",
+          },
+          title: "Success!",
+          icon: "success",
+          text: "Add student successfully!",
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          customClass: {
+            container: "my-swal",
+          },
+          title: "Error!",
+          icon: "error",
+          text: "Student ID is already added!",
+        });
+      });
   };
 
   const saveData = () => {
@@ -302,97 +347,103 @@ export default function Teacherboard(props) {
                           arrow
                           TransitionComponent={Zoom}
                           sx={{ backgroundColor: "#ffff" }}
-                          
                         >
                           <IconButton
                             aria-label="add"
                             sx={{ marginRight: "auto" }}
-                            onClick={() => {                      //เปิดเพิ่มชื่อนักศึกษาเรียบร้อย รอแก้ไข
-                              toggleOpenAddpeople()
+                            onClick={() => {
+                              toggleOpenAddpeople();
+                              setAct_n(row.act_name);
                             }}
                           >
                             <PersonAddIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
                         <Dialog open={openAddpeople}>
-                              <div style={{width:"600px",height:"500px"}}>
-                                <div style={{display:"flex"}}> 
-                                  <h4 style={{marginLeft:"255px",marginTop:"10px"}}>
-                                    Add People
-                                  </h4>
-                                  <IconButton
-                                    onClick={toggleOpenAddpeople}
-                                    aria-label="close"
-                                    sx={{ marginLeft: "auto" }}
-                                  >
-                                    <CancelIcon sx={{ color: "red" }} />
-                                  </IconButton>
-                                </div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginTop: "10px",
-                                  }}
-                                >
-                                  <h5 style={{ marginLeft: "50px" }}>Student ID</h5>
-                                  <TextField
-                                    id="outlined-basic"
-                                    variant="outlined"
-                                    sx={{
-                                      width: "360px",
-                                      marginRight: "50px",
-                                      marginLeft: "20px",
-                                    }}
-                                    value={preval ? prevactname : actname}                //รอแก้ไข
-                                    onChange={onChangeActname}
-                                  />
-                                </div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginTop: "20px",
-                                  }}
-                                >
-                                  <h5 style={{ marginLeft: "65px" }}>Name</h5>
-                                  <TextField
-                                    id="outlined-basic"
-                                    variant="outlined"
-                                    sx={{
-                                      width: "360px",
-                                      marginRight: "50px",
-                                      marginLeft: "47px",
-                                    }}
-                                    value={preval ? prevactname : actname}                  //รอแก้ไข
-                                    onChange={onChangeActname}
-                                  />
-                                </div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginTop: "20px",
-                                  }}
-                                >
-                                  <h5 style={{ marginLeft: "65px" }}>Email</h5>
-                                  <TextField
-                                    id="outlined-basic"
-                                    variant="outlined"
-                                    sx={{
-                                      width: "360px",
-                                      marginRight: "50px",
-                                      marginLeft: "52px",
-                                    }}
-                                    value={preval ? prevactname : actname}                 //รอแก้ไข
-                                    onChange={onChangeActname}
-                                  />
-                                </div>
-                                <button style={{marginLeft:"42%" , marginTop:"120px" , height:"55px" , width:"100px"}} className="btn btn-success" onClick={saveData}>
-                                  Submit
-                                </button>
-                              </div>
-                            </Dialog>
+                          <div style={{ width: "600px", height: "500px" }}>
+                            <div style={{ display: "flex" }}>
+                              <h4
+                                style={{
+                                  marginLeft: "255px",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                Add People
+                              </h4>
+                              <IconButton
+                                onClick={toggleOpenAddpeople}
+                                aria-label="close"
+                                sx={{ marginLeft: "auto" }}
+                              >
+                                <CancelIcon sx={{ color: "red" }} />
+                              </IconButton>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "10px",
+                              }}
+                            >
+                              <h5 style={{ marginLeft: "50px" }}>Student ID</h5>
+                              <TextField
+                                id="outlined-basic"
+                                variant="outlined"
+                                sx={{
+                                  width: "360px",
+                                  marginRight: "50px",
+                                  marginLeft: "20px",
+                                }}
+                                type="number"
+                                value={studentId}
+                                onChange={(e) => setStudentId(e.target.value)}
+                              />
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "20px",
+                              }}
+                            >
+                              <h5 style={{ marginLeft: "60px" }}>
+                                Student Name
+                              </h5>
+                              <TextField
+                                id="outlined-basic"
+                                variant="outlined"
+                                sx={{
+                                  width: "360px",
+                                  marginRight: "50px",
+                                  marginLeft: "47px",
+                                }}
+                                value={studentfullName}
+                                onChange={(e) =>
+                                  setStudentfullName(e.target.value)
+                                }
+                              />
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "20px",
+                              }}
+                            ></div>
+                            <button
+                              style={{
+                                marginLeft: "42%",
+                                marginTop: "120px",
+                                height: "55px",
+                                width: "100px",
+                              }}
+                              className="btn btn-success"
+                              onClick={SubmitStudent}
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </Dialog>
                         <Tooltip
                           title="View People"
                           arrow
@@ -546,7 +597,7 @@ export default function Teacherboard(props) {
                   display: "flex",
                   alignItems: "flex-start",
                   marginTop: "10px",
-                  height:"120px"
+                  height: "120px",
                 }}
               >
                 <h5 style={{ marginLeft: "50px" }}>Experience of event</h5>
@@ -621,7 +672,11 @@ export default function Teacherboard(props) {
                 </Dialog>
               </div>
               <div>
-              <button style={{marginLeft:"42%"}} className="btn btn-success" onClick={saveData}>
+                <button
+                  style={{ marginLeft: "42%" }}
+                  className="btn btn-success"
+                  onClick={saveData}
+                >
                   Submit
                 </button>
               </div>
