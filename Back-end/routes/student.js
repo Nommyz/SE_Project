@@ -30,7 +30,7 @@ student.get("/all", async (req, res) => {
   try {
     const listOfStudent = await Student.findAll({
       where: { instructor: instructor, act_name: activity_name },
-      attributes: ["std_fname", "std_lname", "std_id"],
+      attributes: ["std_fullname", "std_id"],
     });
     let notfound = listOfStudent.length === 0;
     if (notfound) {

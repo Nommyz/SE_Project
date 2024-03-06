@@ -30,6 +30,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Swal from "sweetalert2";
 import "./teacherboard.css";
+import "./profile.css";
 
 export default function Teacherboard(props) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,6 +47,8 @@ export default function Teacherboard(props) {
   const [act_val, setActVal] = useState("");
   const [instructor_val, setInstrucVal] = useState("");
   const [act_n, setAct_n] = useState("");
+  const [student_list, setStudent_List] = useState([]);
+  const [event_std, setEventStd] = useState("");
 
   useEffect(() => {
     axios
@@ -147,18 +150,25 @@ export default function Teacherboard(props) {
     });
   };
 
-  const SubmitStudent = () => {
-    if (studentId.length === 0) {
-      Swal.fire({
-        customClass: {
-          container: "my-swal",
-        },
-        title: "Error!",
-        icon: "error",
-        text: "Student ID field is required!",
+  const StudentList = () => {
+    axios
+      .get(
+        `http://localhost:3000/student/all?act_name=${event_std}&instructor=${props.fullName}`
+      )
+      .then((response) => {
+        setStudent_List(response.data);
+      })
+      .catch((error) => {
+        setErrorMessage(
+          "Cannot connect to the network. Please try again later."
+        );
       });
-      return;
-    } else if (typeof studentId === "string") {
+  };
+
+  const SubmitStudent = () => {
+    let isnum = /^\d+$/.test(studentId);
+
+    if (isnum === false) {
       Swal.fire({
         customClass: {
           container: "my-swal",
@@ -167,6 +177,17 @@ export default function Teacherboard(props) {
         icon: "error",
         text: "Student ID field must be number!",
       });
+      return;
+    } else if (studentId.length === 0) {
+      Swal.fire({
+        customClass: {
+          container: "my-swal",
+        },
+        title: "Error!",
+        icon: "error",
+        text: "Student ID field is required!",
+      });
+
       return;
     }
 
@@ -457,34 +478,94 @@ export default function Teacherboard(props) {
                           <IconButton
                             aria-label="view"
                             sx={{ marginRight: "auto" }}
-                            onClick={() => {                      //เปิดเพิ่มชื่อนักศึกษาเรียบร้อย รอแก้ไข
-                              toggleOpenView()
+                            onClick={() => {
+                              //เปิดเพิ่มชื่อนักศึกษาเรียบร้อย รอแก้ไข
+                              setEventStd(row.act_name);
+                              StudentList();
+                              toggleOpenView();
                             }}
                           >
                             <VisibilityIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
-                          <Dialog open={openView}>                          {/* //เพิ่มการมองรายชื่อ รอแก้ไข เพิ่มเติม */}
-                              <div style={{width:"600px",height:"500px"}}>
-                                <div style={{display:"flex"}}> 
-                                  <h4 style={{marginLeft:"255px",marginTop:"10px"}}>
-                                    View People
-                                  </h4>
-                                  <IconButton
-                                    onClick={toggleOpenView}
-                                    aria-label="close"
-                                    sx={{ marginLeft: "auto" }}
-                                  >
-                                    <CancelIcon sx={{ color: "red" }} />
-                                  </IconButton>
-                                </div>
-                                <div>
-                                  <div style={{marginLeft:"50px",marginRight:"50px" , marginTop:"20px" , backgroundColor:"#D293E4" , height:"30px" , borderRadius:"10px"}}>
-                                    <h5 style={{marginLeft:"15px"}}>1.anammmm</h5>
-                                  </div>
-                                </div>
+                        <Dialog open={openView}>
+                          {" "}
+                          {/* //เพิ่มการมองรายชื่อ รอแก้ไข เพิ่มเติม */}
+                          <div style={{ width: "600px", height: "500px" }}>
+                            <div style={{ display: "flex" }}>
+                              <h4
+                                style={{
+                                  marginLeft: "255px",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                View People
+                              </h4>
+                              <IconButton
+                                onClick={toggleOpenView}
+                                aria-label="close"
+                                sx={{ marginLeft: "auto" }}
+                              >
+                                <CancelIcon
+                                  sx={{ color: "red" }}
+                                  onClick={() => {
+                                    window.location.reload();
+                                  }}
+                                />
+                              </IconButton>
+                            </div>
+                            <div>
+                              <div
+                                style={{
+                                  marginLeft: "50px",
+                                  marginRight: "50px",
+                                  marginTop: "20px",
+
+                                  height: "30px",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                <TableBody>
+                                  {student_list.map((row) => (
+                                    <TableRow
+                                      hover
+                                      key={row.std_id}
+                                      sx={{
+                                        "&:last-child td, &:last-child th": {
+                                          border: 2,
+                                        },
+                                        minWidth: "1500px",
+                                        minHeight: "1000px",
+                                        alignContent: "center",
+                                      }}
+                                    >
+                                      <TableCell
+                                        component="th"
+                                        scope="row"
+                                        align="center"
+                                        style={{
+                                          fontWeight: "bold",
+                                          border: "none",
+                                        }}
+                                      >
+                                        {row.std_fullname.toLowerCase()}
+                                      </TableCell>
+                                      <TableCell
+                                        align="center"
+                                        style={{
+                                          fontWeight: "bold",
+                                          border: "none",
+                                        }}
+                                      >
+                                        {row.std_id}
+                                      </TableCell>
+                                    </TableRow>
+                                  ))}
+                                </TableBody>
                               </div>
-                          </Dialog>
+                            </div>
+                          </div>
+                        </Dialog>
                         <Tooltip
                           title="Edit Activity"
                           arrow
