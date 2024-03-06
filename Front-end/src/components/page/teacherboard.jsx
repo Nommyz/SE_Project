@@ -158,6 +158,16 @@ export default function Teacherboard(props) {
         text: "Student ID field is required!",
       });
       return;
+    } else if (typeof studentId === "string") {
+      Swal.fire({
+        customClass: {
+          container: "my-swal",
+        },
+        title: "Error!",
+        icon: "error",
+        text: "Student ID field must be number!",
+      });
+      return;
     }
 
     axios
@@ -332,6 +342,7 @@ export default function Teacherboard(props) {
                         fontSize: "25px",
                         display: "flex",
                         margin: "auto",
+                        marginLeft: "35px",
                       }}
                     >
                       {row.act_name}
@@ -394,7 +405,6 @@ export default function Teacherboard(props) {
                                   marginRight: "50px",
                                   marginLeft: "20px",
                                 }}
-                                type="number"
                                 value={studentId}
                                 onChange={(e) => setStudentId(e.target.value)}
                               />
