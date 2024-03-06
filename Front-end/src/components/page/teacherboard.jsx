@@ -427,7 +427,7 @@ export default function Teacherboard(props) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
                     components={["DatePicker", "DatePicker"]}
-                    sx={{ marginRight: "10px", marginLeft: "20px" }}
+                    sx={{ marginRight: "10px", marginLeft: "35px" }}
                   >
                     <DatePicker
                       value={preval ? dayjs(prevdate) : date}
@@ -460,14 +460,12 @@ export default function Teacherboard(props) {
               <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   marginTop: "10px",
+                  height:"120px"
                 }}
               >
                 <h5 style={{ marginLeft: "50px" }}>Experience of event</h5>
-                <button className="btn btn-success" onClick={saveData}>
-                  Submit
-                </button>
                 <IconButton
                   aria-lable="add skill"
                   onClick={toggleOpenskill}
@@ -537,6 +535,11 @@ export default function Teacherboard(props) {
                     </div>
                   </div>
                 </Dialog>
+              </div>
+              <div>
+              <button style={{marginLeft:"42%"}} className="btn btn-success" onClick={saveData}>
+                  Submit
+                </button>
               </div>
             </div>
           </Dialog>
