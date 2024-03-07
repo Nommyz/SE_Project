@@ -1,5 +1,5 @@
 // src/components/Dashboard.js
-import React from "react";
+import React, { cert } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -44,9 +44,13 @@ export default function Studentboard(props) {
   const downloadCertificate = (fullname) => {
     axios.get(`http://localhost:3000/certificate/${fullname}`);
 
-    window.location.assign(
-      require("../../../../Back-end/CertificateGenerator/out/kasiyot hanphairot.pdf")
-    );
+    (async () => {
+      await import(
+        `../../../../Back-end/CertificateGenerator/out/${fullname}.pdf`
+      ).then((r) => {
+        window.location.assign(require(r.default));
+      });
+    })();
   };
   return (
     <div
@@ -142,7 +146,6 @@ export default function Studentboard(props) {
                 <TableCell
                   align="center"
                   style={{
-                    textDecoration: "underline",
                     fontWeight: "bold",
                     borderTop: "none",
                     borderLeft: "none",

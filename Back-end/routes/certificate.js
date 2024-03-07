@@ -15,7 +15,7 @@ certificate.get("/:name", async (req, res) => {
 
   // Pipe the PDF into an name.pdf file
   doc.pipe(
-    fs.createWriteStream(`CertificateGenerator/out/${name.toLowerCase()}.pdf`)
+    fs.createWriteStream(`CertificateGenerator/out/${name.toUpperCase()}.pdf`)
   );
 
   // Draw the certificate image
